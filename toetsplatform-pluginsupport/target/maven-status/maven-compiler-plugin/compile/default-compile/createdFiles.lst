@@ -1,9 +1,0 @@
-nl/han/toetsapplicatie/module/plugin/VraagCreatorView.class
-nl/han/toetsapplicatie/module/plugin/AntwoordChecker.class
-nl/han/toetsapplicatie/module/model/ResultaatVraag.class
-nl/han/toetsapplicatie/module/plugin/PluginLoader.class
-nl/han/toetsapplicatie/module/model/Vraag.class
-nl/han/toetsapplicatie/module/plugin/Plugin.class
-nl/han/toetsapplicatie/module/plugin/VraagGenerator.class
-nl/han/toetsapplicatie/module/plugin/AntwoordView.class
-nl/han/toetsapplicatie/module/plugin/VraagView.class
