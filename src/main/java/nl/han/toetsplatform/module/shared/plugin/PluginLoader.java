@@ -1,6 +1,6 @@
-package nl.han.toetsapplicatie.module.plugin;
+package nl.han.toetsplatform.module.shared.plugin;
 
-import nl.han.toetsapplicatie.module.model.Vraag;
+import nl.han.toetsplatform.module.shared.model.Vraag;
 
 import java.io.File;
 import java.net.MalformedURLException;
