@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public interface StorageDao {
 
-    void setup(String ddlScript, String[] tables) throws ClassNotFoundException, SQLException;
+    void setup(String ddlScript, String[] tables) throws SQLException;
 
     ResultSet executeQuery(String sqlStatement) throws SQLException;
 
