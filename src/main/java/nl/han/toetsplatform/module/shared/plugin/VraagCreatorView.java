@@ -1,4 +1,4 @@
-package nl.han.toetsapplicatie.module.plugin;
+package nl.han.toetsplatform.module.shared.plugin;
 
 import javafx.scene.Node;
 
