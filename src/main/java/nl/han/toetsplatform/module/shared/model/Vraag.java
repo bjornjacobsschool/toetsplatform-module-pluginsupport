@@ -5,7 +5,7 @@ public class Vraag {
     private int id;
     private String name;
     private String description;
-    private String questionType;
+    private String vraagType;
     private String plugin;
     private String data;
 
@@ -33,12 +33,12 @@ public class Vraag {
         this.description = description;
     }
 
-    public String getQuestionType() {
-        return questionType;
+    public String getVraagType() {
+        return vraagType;
     }
 
-    public void setQuestionType(String questionType) {
-        this.questionType = questionType;
+    public void setVraagType(String vraagType) {
+        this.vraagType = vraagType;
     }
 
     public String getData() {
