@@ -13,4 +13,6 @@ public interface StorageDao {
     boolean executeUpdate(String sqlStatement) throws SQLException;
 
     Connection getConnection();
+
+    void closeConnection();
 }
