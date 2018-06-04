@@ -12,9 +12,9 @@ public class PluginLoader {
 
     private static HashMap<String, Class> classLoaderHashMap = new HashMap<>();
 
-    public static Class getClass(Vraag vraag) throws ClassNotFoundException {
-        if (classLoaderHashMap.containsKey(vraag.getPlugin())) {
-            return classLoaderHashMap.get(vraag.getPlugin());
+    public static Class getClass(String vraagType) throws ClassNotFoundException {
+        if (classLoaderHashMap.containsKey(vraagType)) {
+            return classLoaderHashMap.get(vraagType);
         }
 
         File folder = new File("./plugins");
@@ -35,8 +35,8 @@ public class PluginLoader {
                         }
 
                         try {
-                            Class questionClass = cl.loadClass(vraag.getPlugin());
-                            classLoaderHashMap.put(vraag.getPlugin(), questionClass);
+                            Class questionClass = cl.loadClass(vraagType);
+                            classLoaderHashMap.put(vraagType, questionClass);
 
                             return questionClass;
                         } catch (ClassNotFoundException e) {
@@ -50,10 +50,10 @@ public class PluginLoader {
         throw new ClassNotFoundException();
     }
 
-    public static Plugin getPlugin(Vraag vraag) throws ClassNotFoundException {
+    public static Plugin getPlugin(String vraagType, String vraagData) throws ClassNotFoundException {
         try {
-            Plugin pl = (Plugin) getClass(vraag).newInstance();
-            pl.initialize(vraag.getData());
+            Plugin pl = (Plugin) getClass(vraagType).newInstance();
+            pl.initialize(vraagData);
             return pl;
         } catch (InstantiationException e) {
             e.printStackTrace();
