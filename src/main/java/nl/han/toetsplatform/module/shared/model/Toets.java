@@ -2,6 +2,7 @@ package nl.han.toetsplatform.module.shared.model;
 
 import java.util.List;
 
+@Deprecated
 public class Toets {
 
     private int id;

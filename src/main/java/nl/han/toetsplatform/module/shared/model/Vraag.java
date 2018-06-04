@@ -1,5 +1,6 @@
 package nl.han.toetsplatform.module.shared.model;
 
+@Deprecated
 public class Vraag {
 
     private int id;
