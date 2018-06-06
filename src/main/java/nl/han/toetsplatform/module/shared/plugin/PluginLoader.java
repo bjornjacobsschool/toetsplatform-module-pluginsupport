@@ -1,15 +1,8 @@
 package nl.han.toetsplatform.module.shared.plugin;
 
 import com.google.common.reflect.ClassPath;
-import org.reflections.Reflections;
-import org.reflections.scanners.ResourcesScanner;
-import org.reflections.scanners.SubTypesScanner;
-import org.reflections.util.ClasspathHelper;
-import org.reflections.util.ConfigurationBuilder;
-import org.reflections.util.FilterBuilder;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -24,9 +17,12 @@ public class PluginLoader {
     private static String pluginFolder = "./plugins";
 
 
+
+
     /** Because some libraries (like graphviz) don't like to be loaded twice caches the loaded classes
      */
-    private static HashMap<String, Class> classLoaderHashMap = new HashMap<>();
+    private static HashMap<String, Class> loadedClasses = new HashMap<>();
+    private static List<File> readFiles = new ArrayList<>();
 
     /**
      * Finds all classes that impliment the Plugin interface.
@@ -36,18 +32,26 @@ public class PluginLoader {
     public static List<Class> getPlugins() {
         List<Class> classes = new ArrayList<>();
 
+        for (Map.Entry<String, Class> entry : loadedClasses.entrySet()) {
+            classes.add(entry.getValue());
+        }
+
+
         List<File> jarFiles = getJars(pluginFolder);
         for (File jar : jarFiles) {
+            if(isFileRead(jar))continue;
+
             try {
                 URLClassLoader cl = URLClassLoader.newInstance(new URL[]{jar.toURI().toURL()});
                 ClassLoader[] loaders = new ClassLoader[]{cl};
+                readFiles.add(jar);
 
                 for (final ClassPath.ClassInfo info : ClassPath.from(cl).getTopLevelClasses()) {
                     if (info.getName().startsWith("nl")) {
                         final Class<?> clazz = info.load();
                         for (Class i : clazz.getInterfaces()) {
                             if (i == Plugin.class) {
-                                classLoaderHashMap.put(clazz.getName(), clazz);
+                                loadedClasses.put(clazz.getName(), clazz);
                                 classes.add(clazz);
                             }
                         }
@@ -60,6 +64,15 @@ public class PluginLoader {
         return classes;
     }
 
+    public static boolean isFileRead(File file){
+        for(File files : readFiles){
+            if(files.toURI().equals(file.toURI()))
+                return true;
+        }
+
+        return false;
+    }
+
 
     /**
      * returns a class bases on the class name
@@ -69,19 +82,22 @@ public class PluginLoader {
      * @throws ClassNotFoundException when it can't find the given class
      */
     public static Class getClass(String className) throws ClassNotFoundException {
-        if (classLoaderHashMap.containsKey(className)) {
-            return classLoaderHashMap.get(className);
+        if (loadedClasses.containsKey(className)) {
+            return loadedClasses.get(className);
         }
 
 
         List<File> jarFiles = getJars(pluginFolder);
         for (File jar : jarFiles) {
+            if(isFileRead(jar))continue;
+
             try {
                 URLClassLoader cl = URLClassLoader.newInstance(new URL[]{jar.toURI().toURL()});
+                readFiles.add(jar);
                 ClassLoader[] loaders = new ClassLoader[]{cl};
 
                 Class questionClass = cl.loadClass(className);
-                classLoaderHashMap.put(className, questionClass);
+                loadedClasses.put(className, questionClass);
 
                 return questionClass;
             } catch (ClassNotFoundException e) {
