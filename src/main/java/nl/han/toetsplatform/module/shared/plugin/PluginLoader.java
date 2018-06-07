@@ -148,17 +148,12 @@ public class PluginLoader {
 
     /**
      * creates a plugin instance of the given vraagType
-     *
-     * @param vraagType the vraag type of the plugin (the full class path)
-     * @param vraagData the data that the plugin needs
-     * @param gegevenAntwoordData The answer data that the use has previously given
      * @return an instance of the plugin
      * @throws ClassNotFoundException when it can't find the given vraagtype
      */
-    public static Plugin getPlugin(String vraagType, String vraagData, String gegevenAntwoordData) throws ClassNotFoundException {
+    public static Plugin getPlugin(String vraagType) throws ClassNotFoundException {
         try {
             Plugin pl = (Plugin) getClass(vraagType).newInstance();
-            pl.initialize(vraagData, gegevenAntwoordData);
             return pl;
         } catch (InstantiationException e) {
             LOGGER.log(Level.SEVERE, e.getMessage());

@@ -6,14 +6,11 @@ import nl.han.toetsplatform.module.shared.plugin.exceptions.NietBerekenbaarExcep
 /**
  * Is verantwoordelijk voor het automatisch nakjken van een vraag zonder een UI
  */
-public interface AntwoordChecker {
-
+public interface AntwoordNakijker {
 
     /**
-     * @param nakijkModel het nakijkmodel van de vraag
-     * @param maxPunten de maximaal behaalbare punten
-     * @return
+     * @return de berekende punten
      * @throws NietBerekenbaarException
      */
-    int getBerekendePunten(String nakijkModel, int maxPunten)  throws NietBerekenbaarException;
+    int getBerekendePunten()  throws NietBerekenbaarException;
 }

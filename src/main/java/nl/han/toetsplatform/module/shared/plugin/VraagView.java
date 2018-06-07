@@ -8,5 +8,4 @@ import javafx.scene.Node;
 public interface VraagView {
 
     Node getView();
-
 }

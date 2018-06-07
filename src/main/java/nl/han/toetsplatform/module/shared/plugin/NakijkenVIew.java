@@ -10,13 +10,7 @@ import javax.xml.soap.Node;
  */
 public interface NakijkenVIew {
 
-
-    /**
-     * @param nakijkModel het nakijkmodel
-     * @param maxPunten het maximaal haalbare punten
-     * @return
-     */
-    Node getView(String nakijkModel, int maxPunten);
+    Node getView();
 
     /**
      * Berekend de behaalbare punten

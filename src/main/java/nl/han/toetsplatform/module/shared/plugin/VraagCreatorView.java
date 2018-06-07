@@ -10,10 +10,8 @@ public interface VraagCreatorView {
 
     Node getView();
 
-
     /**
      * @return Door de gebruiker opgestelde vraag.
      */
     String getQuestionData();
-
 }

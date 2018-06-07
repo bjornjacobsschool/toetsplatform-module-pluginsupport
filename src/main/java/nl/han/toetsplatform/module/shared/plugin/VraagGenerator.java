@@ -8,11 +8,9 @@ import nl.han.toetsplatform.module.shared.plugin.exceptions.VraagGenereerExcepti
  */
 public interface VraagGenerator {
 
-
     /**Genereert een vraag.
-     * @param params parameters om de gegenereerde vraag te veranderen
      * @return Een gegenereerde vraag
      * @throws VraagGenereerException wanneer er geen vraag gegenereerd kan worden
      */
-    String getVraag(String params) throws VraagGenereerException;
+    String getVraag() throws VraagGenereerException;
 }
