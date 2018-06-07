@@ -7,7 +7,7 @@ import javafx.scene.Node;
  */
 public interface AntwoordView {
 
-    Node getView(String givenAntwoord);
+    Node getView();
 
     /**
      * @return Geeft het door de gebruiken gegeven antwoord terug

@@ -5,16 +5,23 @@ import nl.han.toetsplatform.module.shared.plugin.exceptions.NietBerekenbaarExcep
 import javax.xml.soap.Node;
 
 /**
- * Is verantwoordelijk voor het generen van een view waar een vraag nagekeken kan worden
+ * Is verantwoordelijk voor het generen van een view waar een vraag nagekeken kan worden met eventueel de antwoordchecker
+ * Maakt gebruik van antwoordchecker
  */
 public interface NakijkenVIew {
 
-    Node getView(String givenAntwoord);
 
-    /** Berekend de behaalbare punten
-     * @param maxPunten De maximaal behaalbare punten
+    /**
+     * @param nakijkModel het nakijkmodel
+     * @param maxPunten het maximaal haalbare punten
+     * @return
+     */
+    Node getView(String nakijkModel, int maxPunten);
+
+    /**
+     * Berekend de behaalbare punten
      * @return Het aantal punten dat de plugin bepaald heeft
      * @throws NietBerekenbaarException wanneer de plugin niet in staat is om het aantal punten
      */
-    int getBerekendePunten(int maxPunten) throws NietBerekenbaarException;
+    int getBerekendePunten() throws NietBerekenbaarException;
 }

@@ -9,9 +9,10 @@ public interface Plugin {
      */
     void initialize(String vraagData, String gegevenAntwoordData);
 
-    NakijkenVIew getChecker();
+    AntwoordChecker getChecker();
     AntwoordView getAntwoordView();
     VraagGenerator getVraagGenerator();
     VraagView getVraagView();
     VraagCreatorView getVraagCreatorView();
+    NakijkenVIew getNakijkView();
 }
