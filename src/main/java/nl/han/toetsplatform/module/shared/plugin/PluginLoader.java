@@ -10,6 +10,9 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Is verantwoordelijk voor het laden van plugins
+ */
 public class PluginLoader {
 
     private final static Logger LOGGER = Logger.getLogger(PluginLoader.class.getName());
@@ -21,8 +24,8 @@ public class PluginLoader {
 
     /** Because some libraries (like graphviz) don't like to be loaded twice caches the loaded classes
      */
-    private static HashMap<String, Class> loadedClasses = new HashMap<>();
-    private static List<File> readFiles = new ArrayList<>();
+    private final static HashMap<String, Class> loadedClasses = new HashMap<>();
+    private final static List<File> readFiles = new ArrayList<>();
 
     /**
      * Finds all classes that impliment the Plugin interface.
@@ -64,7 +67,7 @@ public class PluginLoader {
         return classes;
     }
 
-    public static boolean isFileRead(File file){
+    private static boolean isFileRead(File file){
         for(File files : readFiles){
             if(files.toURI().equals(file.toURI()))
                 return true;
@@ -81,7 +84,7 @@ public class PluginLoader {
      * @return A class object
      * @throws ClassNotFoundException when it can't find the given class
      */
-    public static Class getClass(String className) throws ClassNotFoundException {
+    private static Class getClass(String className) throws ClassNotFoundException {
         if (loadedClasses.containsKey(className)) {
             return loadedClasses.get(className);
         }
@@ -128,13 +131,13 @@ public class PluginLoader {
 
         List<File> jarFiles = new ArrayList<>();
 
-        for (int i = 0; i < files.length; i++) {
-            if (files[i].isFile()) {
-                int index = files[i].getName().lastIndexOf('.');
+        for (File file : files) {
+            if (file.isFile()) {
+                int index = file.getName().lastIndexOf('.');
                 if (index > 0) {
-                    String extension = files[i].getName().substring(index + 1);
+                    String extension = file.getName().substring(index + 1);
                     if (extension.toLowerCase().equals("jar")) {
-                        jarFiles.add(files[i]);
+                        jarFiles.add(file);
                     }
                 }
             }
@@ -148,13 +151,14 @@ public class PluginLoader {
      *
      * @param vraagType the vraag type of the plugin (the full class path)
      * @param vraagData the data that the plugin needs
+     * @param gegevenAntwoordData The answer data that the use has previously given
      * @return an instance of the plugin
      * @throws ClassNotFoundException when it can't find the given vraagtype
      */
-    public static Plugin getPlugin(String vraagType, String vraagData) throws ClassNotFoundException {
+    public static Plugin getPlugin(String vraagType, String vraagData, String gegevenAntwoordData) throws ClassNotFoundException {
         try {
             Plugin pl = (Plugin) getClass(vraagType).newInstance();
-            pl.initialize(vraagData);
+            pl.initialize(vraagData, gegevenAntwoordData);
             return pl;
         } catch (InstantiationException e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
