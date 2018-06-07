@@ -8,7 +8,7 @@ import javax.xml.soap.Node;
  * Is verantwoordelijk voor het generen van een view waar een vraag nagekeken kan worden met eventueel de antwoordchecker
  * Maakt gebruik van antwoordchecker
  */
-public interface NakijkenVIew {
+public interface NakijkenView {
 
     Node getView();
 

@@ -52,5 +52,5 @@ public interface Plugin {
      * @param maxPunten Het maximaal aantal punten dat je voor de vraag kunt krijgen
      * @return een view die gebruikt word om een vraag na te kijken
      */
-    NakijkenVIew getNakijkView(String vraagData, String gegevenAntwoord, String nakijkModel, int maxPunten);
+    NakijkenView getNakijkView(String vraagData, String gegevenAntwoord, String nakijkModel, int maxPunten);
 }
