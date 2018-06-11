@@ -51,5 +51,5 @@ public interface Plugin {
      * @param nakijkModel Het nakijkmodel
      * @return een view die gebruikt word om een vraag na te kijken
      */
-    NakijkView getNakijkView(String vraagData, String gegevenAntwoord, String nakijkModel);
+    NakijkView getNakijkView(String vraagData, String gegevenAntwoord, String nakijkModel, int maxPunten);
 }
