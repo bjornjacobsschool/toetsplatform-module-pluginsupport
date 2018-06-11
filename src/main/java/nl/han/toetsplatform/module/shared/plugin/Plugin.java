@@ -12,15 +12,17 @@ public interface Plugin {
     AntwoordNakijker getAntwoordNakijker(String vraagData, String gegevenAntwoord, String nakijkModel, int maxPunten);
 
     /**
+     * @param vraagData De vraag data
      * @return de antwoord view
      */
-    AntwoordView getAntwoordView();
+    AntwoordView getAntwoordView(String vraagData);
 
     /**
      * @param gegevenAntwoord Het gegeven antwoord
+     * @param vraagData De vraag data
      * @return de antwoord view
      */
-    AntwoordView getAntwoordView(String gegevenAntwoord);
+    AntwoordView getAntwoordView(String vraagData, String gegevenAntwoord);
 
     /**
      * @param params De parameters die bepalen hoe een vraag eruit ziet
