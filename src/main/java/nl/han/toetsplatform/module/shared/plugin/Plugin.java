@@ -20,7 +20,7 @@ public interface Plugin {
      * @param gegevenAntwoord Het gegeven antwoord
      * @return de antwoord view
      */
-    AntwoordView getAntwoordView(String vraagData, String gegevenAntwoord);
+    AntwoordView getAntwoordView(String gegevenAntwoord);
 
     /**
      * @param params De parameters die bepalen hoe een vraag eruit ziet
