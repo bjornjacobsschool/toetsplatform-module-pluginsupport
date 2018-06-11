@@ -49,8 +49,7 @@ public interface Plugin {
      * @param vraagData De vraagdata
      * @param gegevenAntwoord Het gegeven antwoord
      * @param nakijkModel Het nakijkmodel
-     * @param maxPunten Het maximaal aantal punten dat je voor de vraag kunt krijgen
      * @return een view die gebruikt word om een vraag na te kijken
      */
-    NakijkView getNakijkView(String vraagData, String gegevenAntwoord, String nakijkModel, int maxPunten);
+    NakijkView getNakijkView(String vraagData, String gegevenAntwoord, String nakijkModel);
 }
