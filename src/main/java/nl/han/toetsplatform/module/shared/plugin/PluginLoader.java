@@ -2,12 +2,14 @@ package nl.han.toetsplatform.module.shared.plugin;
 
 import com.google.common.reflect.ClassPath;
 
-
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,9 +23,8 @@ public class PluginLoader {
     private static String pluginFolder = "./plugins";
 
 
-
-
-    /** Because some libraries (like graphviz) don't like to be loaded twice caches the loaded classes
+    /**
+     * Because some libraries (like graphviz) don't like to be loaded twice caches the loaded classes
      */
     private final static HashMap<String, Class> loadedClasses = new HashMap<>();
     private final static List<File> readFiles = new ArrayList<>();
@@ -43,7 +44,7 @@ public class PluginLoader {
 
         List<File> jarFiles = getJars(pluginFolder);
         for (File jar : jarFiles) {
-            if(isFileRead(jar))continue;
+            if (isFileRead(jar)) continue;
 
             try {
                 URLClassLoader cl = URLClassLoader.newInstance(new URL[]{jar.toURI().toURL()});
@@ -68,9 +69,9 @@ public class PluginLoader {
         return classes;
     }
 
-    private static boolean isFileRead(File file){
-        for(File files : readFiles){
-            if(files.toURI().equals(file.toURI()))
+    private static boolean isFileRead(File file) {
+        for (File files : readFiles) {
+            if (files.toURI().equals(file.toURI()))
                 return true;
         }
 
@@ -94,24 +95,25 @@ public class PluginLoader {
         List<File> jarFiles = getJars(pluginFolder);
         for (File jar : jarFiles) {
             try {
-                URLClassLoader child = new URLClassLoader(new URL[]{ jar.toURI().toURL()} , PluginLoader.class.getClassLoader());
+                URLClassLoader child = new URLClassLoader(new URL[]{jar.toURI().toURL()}, PluginLoader.class.getClassLoader());
                 Class loadedClass = loadClass(className, child);
-                if (loadedClass != null){
-                   loadedClasses.put(className, loadedClass);
-                   return loadedClass;
+                if (loadedClass != null) {
+                    loadedClasses.put(className, loadedClass);
+                    return loadedClass;
                 }
             } catch (MalformedURLException e) {
-                e.printStackTrace();
+                LOGGER.log(Level.SEVERE, "Something went wrong with loading plugin: " + e.getMessage());
             }
         }
 
         //If it still hasn't found it it doesn't exist
         throw new ClassNotFoundException();
     }
-    private static Class loadClass(String className, URLClassLoader child){
+
+    private static Class loadClass(String className, URLClassLoader child) {
         try {
             return Class.forName(className, true, child);
-        } catch (ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             return null;
         }
     }
@@ -149,6 +151,7 @@ public class PluginLoader {
 
     /**
      * creates a plugin instance of the given vraagType
+     *
      * @return an instance of the plugin
      * @throws ClassNotFoundException when it can't find the given vraagtype
      */
